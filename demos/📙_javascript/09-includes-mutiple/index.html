@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array includes mutiple values</title>
+    <style>
+    </style>
+</head>
+<body>
+<h1>⚠️ Open up the console to see the result!</h1>
+<script>
+    const products = ['🍎 apple', '🥬 kale', '🍐 pear', '🌽 corn']
+    const fruits = ['🍐 pear', '🍎 apple']
+    const veggies = ['🥬 kale', '🧅 onion']
+
+    //1. checking if AT LEAST ONE value is in the array
+    const atLeastOneFruit = fruits.some(i => products.includes(i))
+    console.log(atLeastOneFruit) // true
+    const atLeastOneVeggie = veggies.some(i => products.includes(i))
+    console.log(atLeastOneVeggie) // true
+
+    //2. checking if ALL THE values are in the array
+    const allTheFruits = fruits.every(i => products.includes(i))
+    console.log(allTheFruits) // true
+    const allTheVeggies = veggies.every(i => products.includes(i))
+    console.log(allTheVeggies) // false, the '🧅 onion' is missing
+</script>
+</body>
+</html>

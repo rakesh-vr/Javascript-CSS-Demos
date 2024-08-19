@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>react-stars-rating</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        .rating {
+            display: inline-flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+        }
+
+        .star {
+            display: inline-flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+        }
+
+        .star > input{ display:none;}
+
+        .star > label {
+            position: relative;
+            width: 1.1em;
+            font-size: 1vw;
+            color: orangered;
+            cursor: pointer;
+        }
+
+        .star > label::before{
+            content: "\2605";
+            position: absolute;
+            opacity: 0;
+        }
+
+        .star > label:hover:before,
+        .star > label:hover ~ label:before {
+            opacity: 1 !important;
+        }
+
+        .star > input:checked ~ label:before{
+            opacity:1;
+        }
+
+        .star:hover > input:checked ~ label:before{ opacity: 0.4; }
+    </style>
+
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        const Star = ({index, selected, clickHandler})=> {
+            return <span className="star" onClick={clickHandler(index)}>
+                <input type="radio" value={index} id={index} />
+                <label htmlFor={index}>☆</label>
+            </span>
+        }
+
+        const StarRating = ({max = 5, val = 0, clickHandler})=> {
+            return <span className="rating">
+                {[...Array(max).keys()].map((i) => (
+                    <Star 
+                        index={i} 
+                        clickHandler={clickHandler}
+                        key={i} 
+                        selected={i === val} />
+                ))}
+            </span>
+        }
+
+        const App = () => {
+            const [foodRating, setFoodRating] = React.useState(0)
+            const [wineRating, setWineRating] = React.useState(0)
+
+            const clickHandler = () => alert(`🍔 ${foodRating} stars\n🍷 ${wineRating} stars`)
+            return <div>
+                <p>🍔 Food rating: <StarRating clickHandler={setFoodRating} /> </p>
+                <p>🍷 Wine rating: <StarRating clickHandler={setWineRating} /> </p>
+                <button onClick={clickHandler}>Show ratings</button>
+            </div>
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"))
+        root.render(<App />)
+    </script>
+</body>
+</html>
+
+<!--
+    link to https://www.js-craft.io/blog/javascript-using-default-values-for-function-parameters-and-when-destructuring/
+    despre ~ si  >
+    https://www.js-craft.io/blog/the-useid-hook-in-react/
+    https://techbrij.com/css-selector-adjacent-child-sibling
+~ Sign:
+
+poti seta nr max de steulte cu max
+rning: Cannot update a component (`App`) while rendering a different component (`Star`). To locate the bad setState() call inside `Star`, follow the stack t
+-->

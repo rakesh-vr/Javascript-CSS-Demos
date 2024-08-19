@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Canvas Resize</title>
+    <style>
+        img { display: none}
+    </style>
+</head>
+<body>
+<h1>Resize the window and the HTML Canvas will redraw the image</h1>
+<canvas id="canvas"></canvas>
+<img id="img" src="test.jpg" />
+
+
+<script type="text/javascript">
+    const img = document.querySelector('#img')
+    const canvas = document.querySelector('#canvas')
+    const canvasContext = canvas.getContext("2d")
+
+    img.onload = ()=> {
+        // first draw of the image
+        drawCanvas()
+        // watch for window resize
+        setResizeHandler()
+    }
+
+    function drawCanvas() {
+        if (img.naturalWidth > window.innerWidth) {
+            canvas.width = window.innerWidth;
+            canvas.height = img.naturalHeight * ( window.innerWidth / img.naturalWidth );
+        }
+        else {ca
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+        }
+        canvasContext.drawImage(img, 0, 0, canvas.width, canvas.height );
+    }
+
+    function setResizeHandler() {
+        let timerId = null;
+        window.addEventListener('resize', () => {
+            if (timerId) {
+                clearTimeout(timerId);
+                timerId = undefined;
+            }
+
+            // 1.5sec after the  user stoped the resize
+            // redraw the canvas on the new size
+            timerId = setTimeout(() => {
+                timerId = undefined;
+                drawCanvas();
+            }, 1500);
+        });
+    }
+</script>
+</body>
+</html>

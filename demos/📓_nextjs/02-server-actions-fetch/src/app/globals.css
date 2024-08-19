@@ -1,0 +1,5 @@
+select, button {
+    display: inline-block;
+    margin: 0.75rem;
+    line-height: 1rem;
+}

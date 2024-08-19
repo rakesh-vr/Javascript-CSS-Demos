@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>CSS Grid hover row</title>
+<style>
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background: green;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+
+.grid > * {
+    padding: 10px;
+    text-align: center;
+    position: relative;
+}
+
+.heading {
+    background: black;
+    color: #fff;
+    font-size: 150%;
+}
+
+.cell {
+    span {
+        position: relative;
+        z-index: 1;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: -1000%;
+        left: -1000%;
+        background-color: green;
+    }
+
+    &:hover::before {
+        background-color: orange;
+    }
+}
+</style>
+</head>
+<body>
+<div class="grid">
+    <div class="heading">🙂 Name:</div>
+    <div class="heading">🎾 Points:</div>
+    <div class="heading">🌎 Country:</div>
+
+    <div class="cell"><span>Novak Djokovic</span></div>
+    <div class="cell"><span>9675</span></div>
+    <div class="cell"><span>🇷🇸 Serbia</span></div>
+
+    <div class="cell"><span>Carlos Alcaraz</span></div>
+    <div class="cell"><span>8805</span></div>
+    <div class="cell"><span>🇪🇸 Spain</span></div>
+
+    <div class="cell"><span>Jannik Sinner</span></div>
+    <div class="cell"><span>8270</span></div>
+    <div class="cell"><span>🇮🇹 Italy</span></div>
+</div>
+</body>
+</html>

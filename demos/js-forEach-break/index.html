@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forEach-break</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <h1>Open up the dev console to see the output!</h1>
+    <script>
+
+        const names = [
+            {name: 'Spiros', flag: '🇬🇷'},
+            {name: 'Bjorn', flag: '🇩🇰'},
+            {name: 'Theo', flag: '🇬🇷'},
+        ]
+
+        /* ⛔️ this will not work
+        names.forEach(n => {
+            if(n.name === 'Bjorn') {
+                console.log(n.flag)
+                break;
+            }
+        })*/
+
+        console.log(names.find(n => n.flag === '🇬🇷'))
+        console.log(names.find(n => n.name === 'Bjorn'))
+        console.log(names.findIndex(n => n.name === 'Theo'))
+    </script>
+</body>
+</html>

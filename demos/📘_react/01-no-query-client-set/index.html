@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>react-use-infinite-query</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/@tanstack/react-query@4/build/umd/index.production.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const {useQuery, QueryClient, QueryClientProvider} = ReactQuery 
+
+        const queryClient = new QueryClient();
+
+        const Results = () => {
+            const {isLoading, error, data} = useQuery({
+                queryKey: ['usersData'],
+                queryFn: () =>
+                fetch('https://randomuser.me/api').then(res => res.json()),
+            });
+
+            if (isLoading) return '⏳ loading...';
+            if (error) return 'An error has occurred!';
+
+            return (<div>
+                {data.results.map(user => (
+                    <div key={user.id.value}>
+                        👨‍💻 User: {user.name.first} {user.name.last}
+                    </div>
+                ))}
+            </div>);
+        }
+
+        const App = () => (
+            <QueryClientProvider client={queryClient}>
+                <Results />
+            </QueryClientProvider>
+        )
+
+        const root = ReactDOM.createRoot(document.getElementById("root"))
+        root.render(<App />)
+
+    </script>
+</body>
+</html>

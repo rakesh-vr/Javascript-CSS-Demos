@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React-copy-paste-img-clipboard</title>
+    <style>
+        button {
+            margin: 0.2rem;
+            line-height: 2rem;
+            width: 195px;
+        }
+
+        .btn-paste {
+            display: block;
+            width: 400px;
+        }
+    </style>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const App = () => {
+            const [imgData, setImgData] = React.useState()
+
+            const copyImgToClipboard = async (animal)=> {
+                const URL = `https://www.js-craft.io/_public-files/img-${animal}.png`
+                try {
+                    const copiedImage = await fetch(URL)
+                    const blobData = await copiedImage.blob()
+                    const clipboardItemInput = new ClipboardItem({'image/png' : blobData})
+                    navigator.clipboard.write([clipboardItemInput])
+                } catch(e) {
+                    console.log(e)
+                }
+            }
+
+            const pasteImg = async ()=> {
+                try {
+                    const clipboardItems = await navigator.clipboard.read()
+                    const blobOutput = await clipboardItems[0].getType('image/png')
+                    const data = URL.createObjectURL(blobOutput)
+                    setImgData(data)
+                } catch(e) {
+                    console.log(e);
+                }
+            }
+
+            return (<div>
+                <button onClick={()=> copyImgToClipboard('cat')}>Copy a 😸 to clipboard</button>
+                <button onClick={()=> copyImgToClipboard('dog')}>Copy a 🐶 to clipboard</button>
+                <button onClick={pasteImg} className="btn-paste">PASTE</button>
+                <img src={imgData} />
+            </div>)
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"))
+        root.render(<App />)
+
+    </script>
+</body>
+</html>
+
+<!--
+    permisions
+    only PNG?
+    https://glitch.com/edit/#!/async-clipboard-api?path=public%2Findex.js%3A1%3A0
+    link spre createObjectURL
+    you can only copy one single img
+-->

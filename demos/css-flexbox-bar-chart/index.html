@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS grid increase element hover</title>
+    <style>
+
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            text-align: center ;
+        }
+
+        :root {
+            --cl-main: orangered;
+        }
+
+        .chart {
+			border: 1px solid;
+			display: flex ;
+			gap: 1rem ;
+			margin: 1rem;
+			padding: 1rem;
+		}
+
+		.item {
+			display: flex ;
+			flex: 1 1 auto ;
+			flex-direction: column-reverse ;
+			gap: 5px ;
+			height: 250px ;
+		}
+		.label {
+			flex: 0 0 auto ;
+		}
+		.val {
+			flex: 0 0 auto ;
+			margin: 0;
+		}
+		.bar {
+			background-color: var(--cl-main) ;
+			border-radius: 5px;
+			display: block ;
+			margin-top: 8px ;
+		}
+
+    </style>
+</head>
+<body>
+    <h1>📈 Traffic sources</h1>
+    <dl class="chart">
+		<div class="item">
+			<dt class="label"> Facebook </dt>
+			<dd class="val">
+				20
+				<span class="bar" style="height: 20px;"></span>
+			</dd>
+		</div>
+		<div class="item">
+			<dt class="label"> Google </dt>
+			<dd class="val">
+				100
+				<span class="bar" style="height: 100px ;"></span>
+			</dd>
+		</div>
+		<div class="item">
+			<dt class="label"> Instagram </dt>
+			<dd class="val">
+				46
+				<span class="bar" style="height: 46px ;"></span>
+			</dd>
+		</div>
+		<div class="item">
+			<dt class="label"> Direct </dt>
+			<dd class="val">
+				35
+				<span class="bar" style="height: 35px;"></span>
+			</dd>
+		</div>
+		<div class="item">
+			<dt class="label"> Newsletter </dt>
+			<dd class="val">
+				162
+				<span class="bar" style="height: 162px ;"></span>
+			</dd>
+		</div>
+	</dl>
+</body>
+</html>
+

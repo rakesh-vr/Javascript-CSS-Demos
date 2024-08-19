@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack elements with CSS Grid</title>
+    <style>
+        .container {
+            border: 2px solid orangered;
+            display: grid;
+        }
+
+        img { 
+            grid-area: 1 / 1 / 4 / 2; 
+            margin: 0px auto;
+            max-height: 340px;
+        }
+
+        .blue {
+            background-color: blue;
+            grid-area: 1 / 1 / 2 / 2;
+        }
+
+        .red {
+            background-color: red;
+            grid-area: 3 / 1 / 4 / 2;
+        }
+
+        .blue, .red {
+            line-height: 50px;
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            /*👇 not mandatory but can prevent bugs */ 
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="blue">A cat named</div>
+        <div class="red">TOM</div>
+        <img src="tom.png">
+    </div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose a date format</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <p>🗓 Current date: <span id="current-date"></span></p>
+    <label for="format-select">🖋 Choose a date format:</label>
+    <select name="format-select" id="format-select">
+        <option value="">--- Select a format ---</option>
+        <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+        <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+        <option value="DD MMM YYYY">DD MMM YYYY</option>
+        <option value="MMMM DD, YYYY">MMMM DD, YYYY</option>
+        <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+        
+    </select>
+    <p>🖋 Formatted date: <span id="formated-date"></span></p>
+    
+    <script>
+// Get the current date
+const currentDate = new Date()
+
+// Display the current date in the appropriate container
+const cdContainer = document.querySelector('#current-date')
+cdContainer.textContent = currentDate
+
+// Get the container for the formatted date
+const fdContainer = document.querySelector('#formated-date')
+
+// Listen for changes in the format selection
+document.querySelector('#format-select').addEventListener('change', (e) => {
+    // Get the selected format
+    const newFormat = e.target.value
+    // Format the date and display it in the appropriate container
+    fdContainer.textContent = formatDate(newFormat, currentDate)
+})
+
+// Function to format the date based on the selected format
+const formatDate = (format, date) => {
+    // Check the selected format and format the date accordingly
+    if (format == 'YYYY-MM-DD') {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit'}
+        return date.toLocaleDateString('en-GB', options).split('/').reverse().join('-')
+    }
+
+    if (format == 'DD MMM YYYY') {
+        const options = { day: '2-digit', month: 'short', year: 'numeric' }
+        const formattedDate = date.toLocaleDateString('en-US', options)
+        const [m, d, y] = formattedDate.split(' ')
+        return `${d} ${m.toUpperCase()} ${y}`
+    }
+
+    if (format == 'MMMM DD, YYYY') {
+        const options = { month: 'long', day: 'numeric', year: 'numeric' }
+        return date.toLocaleDateString(undefined, options)
+    }
+
+    if (format == 'MM/DD/YYYY') {
+        const options = { month: '2-digit', day: '2-digit', year: 'numeric' }
+        return date.toLocaleDateString('en-US', options)
+    }
+    
+    if (format == 'DD/MM/YYYY') {
+        return date.toLocaleDateString('en-GB')
+    }
+    
+    // If the selected format is not valid, display an error message
+    return '⛔️ No valid format'
+}
+    </script>
+</body>
+</html>

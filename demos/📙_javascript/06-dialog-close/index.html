@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Close Dialog</title>
+    <style>
+        dialog {
+	        border: 5px solid #4692ec;
+            border-radius: 5px;
+            text-align: center;
+            position: relative;
+        }
+
+        dialog button { 
+            background: none;
+            border: none;
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            cursor: pointer;
+        }
+        
+    </style>
+</head>
+<body>
+<dialog id="my-dialog">
+    <form method="dialog">
+        <button type="submit">❌</button>
+        <p>This dialog can be closed using both the <code>close()</code> method or using a <code>submit</code> button.</p>
+        <a href="#" data-dialog-with-js>Close dialog using Javascript</a>
+    </form>
+</dialog>
+<button data-open-dialog>Open the dialog</button>
+
+<script>
+    // open the dialog
+    const btnShowDialog = document.querySelector('[data-open-dialog]')
+    const dialog = document.querySelector('#my-dialog')
+    btnShowDialog.addEventListener('click', () => dialog.showModal())
+
+    // close the dialog with Javascript
+    const closeDialogWithJs = document.querySelector('[data-dialog-with-js]')
+    closeDialogWithJs.addEventListener('click', () => dialog.close())
+</script>
+</body>
+</html>
